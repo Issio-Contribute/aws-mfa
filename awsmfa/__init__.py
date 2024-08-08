@@ -194,8 +194,8 @@ def validate(args, config):
 
     # get region to use form args or credentials file
     if not args.region:
-      if config.has_option(long_term_name, 'region'):
-        args.region = config.get(long_term_name, 'region')
+        if config.has_option(long_term_name, 'region'):
+            args.region = config.get(long_term_name, 'region')
 
     # If this is False, only refresh credentials if expired. Otherwise
     # always refresh.
@@ -287,13 +287,13 @@ def get_credentials(short_term_name, lt_key_id, lt_access_key, args, config):
                               '(renewing for %s seconds):' %
                               (args.device, args.duration))
 
-    config=None if args.region is None else Config(region_name = args.region)
+    aws_config=None if args.region is None else Config(region_name = args.region)
 
     client = boto3.client(
         'sts',
         aws_access_key_id=lt_key_id,
         aws_secret_access_key=lt_access_key,
-        config=config
+        config=aws_config
     )
 
     if args.assume_role:
